@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+
+  order-service-database:
+    image: postgres
+    container_name: order-service-db
+    ports:
+      - "5411:5432"
+    environment:
+      POSTGRES_USER: "orderservice"
+      POSTGRES_DB: "orderservice"
+      POSTGRES_PASSWORD: "orderservice"
+
+  payment-service-database:
+    image: postgres
+    container_name: payment-service-db
+    ports:
+      - "5412:5432"
+    environment:
+      POSTGRES_USER: "paymentservice"
+      POSTGRES_DB: "paymentservice"
+      POSTGRES_PASSWORD: "paymentservice"
+
+  inventory-service-database:
+    image: postgres
+    container_name: inventory-service-db
+    ports:
+      - "5413:5432"
+    environment:
+      POSTGRES_USER: "inventoryservice"
+      POSTGRES_DB: "inventoryservice"
+      POSTGRES_PASSWORD: "inventoryservice"
+
+  rabbit:
+    image: rabbitmq:3-management
+    container_name: saga-rabbitmq
+    ports:
+      - "5682:5672"
+      - "15682:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin

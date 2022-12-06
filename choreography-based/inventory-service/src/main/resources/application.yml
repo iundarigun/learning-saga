@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: inventory-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5413/inventoryservice
+    username: inventoryservice
+    password: inventoryservice
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: false
+    open-in-view: false
+
+  flyway:
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+  rabbitmq:
+    username: admin
+    password: admin
+    port: 5682
+
+server:
+  port: 8003
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
