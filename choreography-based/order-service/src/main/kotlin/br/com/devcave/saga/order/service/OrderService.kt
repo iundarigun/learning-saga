@@ -37,6 +37,17 @@ class OrderService(
                 orderRepository.save(it)
             }
     }
+
+    @Transactional
+    fun processConfirmation(request: OrderSagaMessage) {
+        logger.info("OrderService#processConfirmation, request=$request")
+        orderRepository
+            .findById(request.id)
+            .ifPresent {
+                it.status = OrderStatus.FINISHED
+                orderRepository.save(it)
+            }
+    }
 }
 
 private fun Order.toMessage(): OrderSagaMessage =
